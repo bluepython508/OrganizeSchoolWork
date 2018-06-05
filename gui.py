@@ -22,7 +22,7 @@ except ImportError:
     py3 = True
 
 import gui_support
-
+from organizeSchoolWork import SUBJECTS
 
 def vp_start_gui():
     """Starting point when module is the main routine."""
@@ -103,6 +103,7 @@ class New_Toplevel:
         self.TCombobox1.place(relx=0.34, rely=0.15, relheight=0.04, relwidth=0.28)
         self.TCombobox1.configure(textvariable=gui_support.combobox)
         self.TCombobox1.configure(takefocus="")
+        self.TCombobox1.configure(values=SUBJECTS)
 
         self.TLabel2 = ttk.Label(self.rootFrame)
         self.TLabel2.place(relx=0.18, rely=0.19, height=20, width=119)
