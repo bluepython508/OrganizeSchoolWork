@@ -1,2 +1,14 @@
+version: 1.0.{build}
+build_script:
+- cmd: >-
+    cd C:\projects\organizeschoolwork
+
+    py -3 -m pip install pyinstaller python-docx
+
+    pyinstaller -y -w -F --add-binary template.docx;. -n OrganizeSchoolWork gui.py
+test: off
+artifacts:
+- path: dist\OrganizeSchoolWork.exe
+  name: OrganizeSchoolWork.exe
 on_finish:
 - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
