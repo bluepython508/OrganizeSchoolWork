@@ -30,6 +30,7 @@ def vp_start_gui():
     root = Tk()
     gui_support.set_Tk_var()
     top = New_Toplevel(root)
+    w = root
     gui_support.init(root, top)
     root.mainloop()
 
@@ -58,6 +59,7 @@ class New_Toplevel:
     def create_callback(self, event=None):
         import organizeSchoolWork
         organizeSchoolWork.new_doc(gui_support.combobox.get(), self.TEntry1.get())
+        destroy_New_Toplevel()
 
     def __init__(self, top=None):
         """This class configures and populates the toplevel window.
@@ -78,7 +80,7 @@ class New_Toplevel:
         )
 
         top.geometry("600x308+361+213")
-        top.title("New Toplevel")
+        top.title("Create new schoolwork file")
         top.configure(background="#d9d9d9")
         top.configure(highlightbackground="#d9d9d9")
         top.configure(highlightcolor="black")
