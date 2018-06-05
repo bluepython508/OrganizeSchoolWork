@@ -21,8 +21,8 @@ SUBJECTS = [
     "Pe",
     "Science"
 ]
-
-SUBJECTS.extend(os.listdir(Path.home() / "Documents" / "SchoolWork"))
+(Path.home() / "Documents" / "SchoolWork").mkdir(exist_ok=True)
+SUBJECTS.extend(os.listdir((Path.home() / "Documents" / "SchoolWork")))
 SUBJECTS.remove("template.docx")
 SUBJECTS = sorted(list(set(SUBJECTS)))
 
@@ -82,7 +82,7 @@ def new_doc(subject, name):
         .resolve()
     )
     loc = (Path.home() / "Documents" / "SchoolWork" / subject).absolute()
-    loc.mkdir(exist_ok=True)
+    loc.mkdir(exist_ok=True, parents=True)
     file = (loc / f"{date.today().isoformat()}-{name}.docx").absolute().resolve()
     doc = Document(os.fspath(template))
     for para in doc.paragraphs:
