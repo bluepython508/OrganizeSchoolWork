@@ -1,7 +1,6 @@
 from docx import Document
 from datetime import date
 from subprocess import Popen
-import sh
 import os
 from pathlib import Path
 import sys
@@ -107,5 +106,5 @@ def new_doc(subject, name):
         utility = "xdg-open"
     print(utility, os.fspath(file))
     print(subprocess_args())
-    sh.Command(utility)(os.fspath(file))
-    # Popen([utility, os.fspath(file)], **subprocess_args())
+    # sh.Command(utility)(os.fspath(file))
+    Popen([utility, os.fspath(file)])
