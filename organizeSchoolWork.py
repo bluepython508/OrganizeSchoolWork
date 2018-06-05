@@ -34,13 +34,13 @@ def subprocess_args(include_stdout=True):
         # On Windows, subprocess calls will pop up a command window by default
         # when run from Pyinstaller with the ``--noconsole`` option. Avoid this
         # distraction.
-        si = subprocess.STARTUPINFO()
-        si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+        # si = subprocess.STARTUPINFO()
+        # si.dwFlags |= subprocess.STARTF_USESHOWWINDOW
         # Windows doesn't search the path by default. Pass it an environment so
         # it will.
         env = os.environ
     else:
-        si = None
+        # si = None
         env = None
 
     # ``subprocess.check_output`` doesn't allow specifying ``stdout``::
@@ -69,7 +69,7 @@ def subprocess_args(include_stdout=True):
         {
             "stdin": subprocess.PIPE,
             "stderr": subprocess.PIPE,
-            "startupinfo": si,
+            # "startupinfo": si,
             "env": env,
         }
     )
