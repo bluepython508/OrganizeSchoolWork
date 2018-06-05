@@ -95,10 +95,13 @@ def new_doc(subject, name):
             }
         )
     doc.save(os.fspath(file))
+    print(sys.platform)
     if sys.platform == "darwin":
         utility = "open"
     elif sys.platform.startswith("win"):
         utility = "start"
     else:
         utility = "xdg-open"
+    print(utility, os.fspath(file))
+    print(subprocess_args())
     Popen([utility, os.fspath(file)], **subprocess_args())
