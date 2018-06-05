@@ -23,7 +23,8 @@ SUBJECTS = [
 ]
 (Path.home() / "Documents" / "SchoolWork").mkdir(exist_ok=True)
 SUBJECTS.extend(os.listdir((Path.home() / "Documents" / "SchoolWork")))
-SUBJECTS.remove("template.docx")
+if "template.docx" in SUBJECTS:
+    SUBJECTS.remove("template.docx")
 SUBJECTS = sorted(list(set(SUBJECTS)))
 
 
