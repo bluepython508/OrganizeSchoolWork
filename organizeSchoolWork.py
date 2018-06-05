@@ -33,7 +33,7 @@ def subprocess_args(include_stdout=True):
     #
     # So, add it only if it's needed.
     if include_stdout:
-        ret = {'stdout': subprocess.PIPE}
+        ret = {}  # 'stdout': subprocess.PIPE}
     else:
         ret = {}
 
@@ -43,8 +43,9 @@ def subprocess_args(include_stdout=True):
     # "[Error 6] the handle is invalid."
     if sys.platform == 'win32':
         ret['close_fds'] = True
-    ret.update({'stdin': subprocess.PIPE,
-                'stderr': subprocess.PIPE,
+    ret.update({
+                # 'stdin': subprocess.PIPE,
+                # 'stderr': subprocess.PIPE,
                 'startupinfo': si,
                 'env': env})
     return ret
