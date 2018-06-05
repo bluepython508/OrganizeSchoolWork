@@ -5,7 +5,6 @@ import subprocess
 import os
 from pathlib import Path
 import sys
-import shutil
 
 
 def subprocess_args(include_stdout=True):
@@ -53,9 +52,6 @@ def subprocess_args(include_stdout=True):
 
 def new_doc(subject, name):
     template = (Path.home() / "Documents" / "SchoolWork" / "template.docx").absolute().resolve()
-    if not template.exists():
-        template.parent.mkdir(exist_ok=True)
-        shutil.copy('template.docx', os.fspath(template))
     loc = (Path.home() / "Documents" / "SchoolWork" / subject).absolute()
     loc.mkdir(exist_ok=True)
     file = (loc / f"{date.today().isoformat()}-{name}.docx").absolute().resolve()
