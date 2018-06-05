@@ -63,7 +63,8 @@ def subprocess_args(include_stdout=True):
     # (stdin, stdout, stderr) to avoid an OSError exception
     # "[Error 6] the handle is invalid."
     if sys.platform == "win32":
-        ret["close_fds"] = True
+        # ret["close_fds"] = True
+        pass
     ret.update(
         {
             "stdin": subprocess.PIPE,
