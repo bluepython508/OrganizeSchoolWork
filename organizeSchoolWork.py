@@ -6,12 +6,9 @@ from subprocess import Popen
 
 
 def new_doc(subject, name):
-    template = FilePath("%HomeDrive%%HomePath%", ensure="dir")["Documents"][
-        "SchoolWork"
-    ].getChild("template.docx", ensure="file")
-    loc = FilePath("%HomeDrive%%HomePath%", ensure="dir")["Documents"]["SchoolWork"][
-        subject
-    ]
+    template = FilePath("%HomeDrive%%HomePath%", ensure="dir").child("Documents").child("SchoolWork")\
+        .getChild("template.docx", ensure="file")
+    loc = FilePath("%HomeDrive%%HomePath%", ensure="dir").child("Documents").child("SchoolWork").child(subject)
     file = FilePath(loc, ensure="file").child(f"{date.today().isoformat()}-{name}.docx")
     doc = Document(template.path)
     date_para = doc.add_paragraph(date.today().strftime("%a, %d %b %Y"), "Heading2")
