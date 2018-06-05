@@ -57,7 +57,7 @@ def destroy_New_Toplevel():
 class New_Toplevel:
     def create_callback(self, event=None):
         import organizeSchoolWork
-        organizeSchoolWork.new_doc(gui_support.combobox, self.TEntry1.get())
+        organizeSchoolWork.new_doc(gui_support.combobox.get(), self.TEntry1.get())
 
     def __init__(self, top=None):
         """This class configures and populates the toplevel window.
