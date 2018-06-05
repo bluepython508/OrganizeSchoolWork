@@ -1,7 +1,7 @@
 from docx import Document
 from datetime import date
 from subprocess import Popen
-import subprocess
+import sh
 import os
 from pathlib import Path
 import sys
@@ -87,6 +87,7 @@ def new_doc(subject, name):
     loc = (Path.home() / "Documents" / "SchoolWork" / subject).absolute()
     loc.mkdir(exist_ok=True, parents=True)
     file = (loc / f"{date.today().isoformat()}-{name}.docx").absolute().resolve()
+    file.touch()
     doc = Document(os.fspath(template))
     for para in doc.paragraphs:
         para.text = para.text.format(
@@ -106,4 +107,5 @@ def new_doc(subject, name):
         utility = "xdg-open"
     print(utility, os.fspath(file))
     print(subprocess_args())
-    Popen([utility, os.fspath(file)], **subprocess_args())
+    sh.Command(utility)(os.fspath(file))
+    # Popen([utility, os.fspath(file)], **subprocess_args())
