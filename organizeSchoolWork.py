@@ -1,12 +1,15 @@
+import os
+import re
+import shutil
 import subprocess
+import sys
+from datetime import date
+from pathlib import Path
+from subprocess import Popen
 
 from docx import Document
-from datetime import date
-from subprocess import Popen
-import os
-from pathlib import Path
-import sys
 
+SCHOOLWORK = Path.home() / "Documents" / "SchoolWork"
 SUBJECTS = [
     "English",
     "Irish",
@@ -20,13 +23,13 @@ SUBJECTS = [
     "Cspe",
     "Sphe",
     "Pe",
-    "Science"
+    "Science",
 ]
-(Path.home() / "Documents" / "SchoolWork").mkdir(exist_ok=True)
-SUBJECTS.extend(os.listdir((Path.home() / "Documents" / "SchoolWork")))
+SCHOOLWORK.mkdir(exist_ok=True)
+SUBJECTS.extend(os.listdir(SCHOOLWORK))
+SUBJECTS = sorted(list(set(SUBJECTS)))
 if "template.docx" in SUBJECTS:
     SUBJECTS.remove("template.docx")
-SUBJECTS = sorted(list(set(SUBJECTS)))
 
 
 def subprocess_args(include_stdout=True):
@@ -80,15 +83,16 @@ def subprocess_args(include_stdout=True):
 
 def new_doc(subject, name):
     subject = subject.title()
-    template = (
-        (Path.home() / "Documents" / "SchoolWork" / "template.docx")
-        .absolute()
-        .resolve()
-    )
-    loc = (Path.home() / "Documents" / "SchoolWork" / subject).absolute()
+    subject = re.sub("[^-A-Za-z0-9_ .,]*", "", subject)
+    name = re.sub("[^-A-Za-z0-9_ .,]*", "", name)
+    template = (SCHOOLWORK / "template.docx").resolve()
+    if not template.exists():
+        if not template.parent.exists():
+            template.parent.mkdir(exist_ok=True, parents=True)
+        shutil.copyfile("template.docx", os.fspath(template))
+    loc = (SCHOOLWORK / subject).absolute()
     loc.mkdir(exist_ok=True, parents=True)
-    file = (loc / f"{date.today().isoformat()}-{name}.docx").absolute().resolve()
-    file.touch()
+    file = (loc / f"{date.today().isoformat()}-{name}.docx").resolve()
     doc = Document(os.fspath(template))
     for para in doc.paragraphs:
         para.text = para.text.format(
