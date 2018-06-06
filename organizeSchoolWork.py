@@ -42,9 +42,10 @@ def subprocess_args(include_stdout=True):
     # with the ``--noconsole`` option requires redirecting everything
     # (stdin, stdout, stderr) to avoid an OSError exception
     # "[Error 6] the handle is invalid."
-    # if sys.platform == 'win32':
-    #     ret['close_fds'] = True
-    ret.update({'stdin': subprocess.PIPE,
+    #if sys.platform == 'win32':
+    #    ret['close_fds'] = True
+    ret.update({
+                'stdin': subprocess.PIPE,
                 'stderr': subprocess.PIPE,
                 'startupinfo': si,
                 'env': env})
@@ -53,9 +54,6 @@ def subprocess_args(include_stdout=True):
 
 def new_doc(subject, name):
     template = (Path.home() / "Documents" / "SchoolWork" / "template.docx").absolute().resolve()
-    if not template.exists():
-        template.parent.mkdir(exist_ok=True)
-        shutil.copy('template.docx', os.fspath(template))
     loc = (Path.home() / "Documents" / "SchoolWork" / subject).absolute()
     loc.mkdir(exist_ok=True)
     file = (loc / f"{date.today().isoformat()}-{name}.docx").absolute().resolve()
