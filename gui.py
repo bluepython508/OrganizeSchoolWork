@@ -125,5 +125,4 @@ class New_Toplevel:
         self.TButton1.configure(text="""Create""")
 
 
-if __name__ == "__main__":
-    vp_start_gui()
+vp_start_gui()

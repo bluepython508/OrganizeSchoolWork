@@ -7,7 +7,7 @@ build_script:
 
     py -3  templater.py
 
-    py -3 -m PyInstaller -y -w -F --add-binary template.docx;. -n OrganizeSchoolWork gui.py
+    py -3 -m PyInstaller -y -w -F -n OrganizeSchoolWork gui.py
 test: off
 artifacts:
 - path: dist\OrganizeSchoolWork.exe
