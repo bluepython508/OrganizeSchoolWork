@@ -91,8 +91,10 @@ def new_doc(subject, name):
     if not template.exists():
         if not template.parent.exists():
             template.parent.mkdir(exist_ok=True, parents=True)
-        with template.open('w') as temp:
+        with template.open('wb') as temp:
             temp.write(b64decode(template_b64))
+        # print(b64encode(template.read_text()))
+    # print(template.exists())
     loc = (SCHOOLWORK / subject).absolute()
     loc.mkdir(exist_ok=True, parents=True)
     file = (loc / f"{date.today().isoformat()}-{name}.docx").resolve()
@@ -106,7 +108,7 @@ def new_doc(subject, name):
             }
         )
     doc.save(os.fspath(file))
-    print(sys.platform)
+    # print(sys.platform)
     if sys.platform == "darwin":
         utility = "open"
     elif sys.platform.startswith("win"):
@@ -114,6 +116,6 @@ def new_doc(subject, name):
     else:
         utility = "xdg-open"
     print(utility, os.fspath(file))
-    print(subprocess_args())
+    # print(subprocess_args())
     # sh.Command(utility)(os.fspath(file))
     Popen([utility, os.fspath(file)], **subprocess_args())
