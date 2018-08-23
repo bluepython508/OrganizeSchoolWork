@@ -5,6 +5,8 @@ build_script:
 
     py -3 -m pip install pyinstaller python-docx
 
+    py -3  templater.py
+
     py -3 -m PyInstaller -y -w -F --add-binary template.docx;. -n OrganizeSchoolWork gui.py
 test: off
 artifacts:
