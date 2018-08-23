@@ -1,6 +1,8 @@
 import os
 import re
-import shutil
+from base64 import b64decode
+
+from template import template as template_b64
 import subprocess
 import sys
 from datetime import date
@@ -26,7 +28,7 @@ SUBJECTS = [
     "Science",
 ]
 SCHOOLWORK.mkdir(exist_ok=True)
-SUBJECTS.extend(os.listdir(SCHOOLWORK))
+SUBJECTS.extend(os.listdir(os.fspath(SCHOOLWORK)))
 SUBJECTS = sorted(list(set(SUBJECTS)))
 if "template.docx" in SUBJECTS:
     SUBJECTS.remove("template.docx")
@@ -89,7 +91,8 @@ def new_doc(subject, name):
     if not template.exists():
         if not template.parent.exists():
             template.parent.mkdir(exist_ok=True, parents=True)
-        shutil.copyfile("template.docx", os.fspath(template))
+        with template.open('w') as temp:
+            temp.write(b64decode(template_b64))
     loc = (SCHOOLWORK / subject).absolute()
     loc.mkdir(exist_ok=True, parents=True)
     file = (loc / f"{date.today().isoformat()}-{name}.docx").resolve()

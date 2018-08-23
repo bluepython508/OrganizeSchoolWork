@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
-pyinstaller -w -F --add-binary template.docx:. -y -n OrganizeSchoolWork gui.py
+python templater.py
+pyinstaller -w -F -y -n OrganizeSchoolWork gui.py
