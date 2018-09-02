@@ -19,7 +19,7 @@ buildOptions.update({
 base = 'Win32GUI' if sys.platform == 'win32' else None
 
 executables = [
-    Executable('gui.py', base=base, targetName='OrganizeSchoolWork.exe', shortcutName='OrganizeSchoolWork ')
+    Executable('gui.py', base=base, targetName='OrganizeSchoolWork.exe', shortcutName='OrganizeSchoolWork',shortcutDir='DesktopFolder')
 ]
 
 setup(name='OrganizeSchoolWork',
