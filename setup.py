@@ -1,18 +1,29 @@
-from cx_Freeze import setup, Executable
+import os
 
+from cx_Freeze import setup, Executable
+import sys
 # Dependencies are automatically detected, but it might need
 # fine tuning.
-buildOptions = dict(packages = [], excludes = [])
+PYTHON_INSTALL_DIR = os.path.dirname(os.path.dirname(os.__file__))
+os.environ['TCL_LIBRARY'] = os.path.join(PYTHON_INSTALL_DIR, 'tcl', 'tcl8.6')
+os.environ['TK_LIBRARY'] = os.path.join(PYTHON_INSTALL_DIR, 'tcl', 'tk8.6')
+buildOptions = dict(packages=[], excludes=[])
+buildOptions.update({
 
-import sys
-base = 'Win32GUI' if sys.platform=='win32' else None
+    'include_files': [
+        os.path.join(PYTHON_INSTALL_DIR, 'DLLs', 'tk86t.dll'),
+        os.path.join(PYTHON_INSTALL_DIR, 'DLLs', 'tcl86t.dll'),
+    ],
+})
+
+base = 'Win32GUI' if sys.platform == 'win32' else None
 
 executables = [
-    Executable('gui.py', base=base, targetName = 'OrganizeSchoolWork')
+    Executable('gui.py', base=base, targetName='OrganizeSchoolWork')
 ]
 
 setup(name='OrganizeSchoolWork',
-      version = '1.0',
-      description = '',
-      options = dict(build_exe = buildOptions),
-      executables = executables)
+      version='1.0',
+      description='',
+      options=dict(build_exe=buildOptions),
+      executables=executables, requires=['cx_Freeze'])

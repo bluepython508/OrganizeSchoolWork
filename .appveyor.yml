@@ -7,7 +7,7 @@ build_script:
 
     py -3.6  templater.py
 
-    py -3.6 setup.py build_msi
+    py -3.6 setup.py bdist_msi
 test: off
 artifacts:
 - path: dist\OrganizeSchoolWork.exe
