@@ -3,11 +3,11 @@ build_script:
 - cmd: >-
     cd C:\projects\organizeschoolwork
 
-    py -3 -m pip install pyinstaller python-docx
+    py -3 -m pip install cx_freeze python-docx
 
     py -3  templater.py
 
-    py -3 -m PyInstaller -y -F -n OrganizeSchoolWork gui.py
+    py -3 setup.py build_msi
 test: off
 artifacts:
 - path: dist\OrganizeSchoolWork.exe
